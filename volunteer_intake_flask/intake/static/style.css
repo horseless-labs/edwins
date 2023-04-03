@@ -24,3 +24,21 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
+
+.form-row {
+    display: flex;
+    align-items: left;
+  }
+  .form-row label {
+    width: 10%;
+    align-items: left;
+  }
+  .form-row input {
+    margin-left: 10px;
+    margin-right: 20px;
+    align-items: left;
+  },
+  .form-row select {
+    margin-left: 10px;
+    width: 70%;
+  }
