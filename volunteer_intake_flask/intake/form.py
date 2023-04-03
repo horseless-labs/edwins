@@ -6,7 +6,6 @@ bp = Blueprint('form', __name__, url_prefix='/volunteer')
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
-    print("Register")
     if request.method == 'POST':
         name = request.form["username"]
         address = request.form["address"]
@@ -21,7 +20,6 @@ def register():
         dob = request.form["dob"]
         active = 1
 
-        print("Got here")
         error = None
 
         db = get_db()
@@ -35,7 +33,7 @@ def register():
             address = "NA"
         if not city:
             city = "NA"
-        if not state:
+        if state == "--select a state--":
             state = "NA"
         if not zip:
             zip = "NA"
@@ -65,7 +63,6 @@ def register():
             except db.IntegrityError:
                 error = f"User {name} is already registered"
             else:
-                print("Error is not None")
                 return redirect(url_for('hello'))
 
         flash(error)
