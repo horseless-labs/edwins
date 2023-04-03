@@ -26,3 +26,7 @@ def register():
         if error is None:
             # TODO: build out the full intake form to match the schema.
             pass
+
+        flash(error)
+    
+    return render_template("volunteer/register.html")
