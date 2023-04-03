@@ -44,3 +44,12 @@ input[type=submit] { align-self: start; min-width: 10em; }
     margin-left: 10px;
     width: 70%;
   }
+
+  fieldset {
+    margin: 20px 10px;
+  }
+
+  legend {
+    font-size: 1.2em;
+    font-weight: bold;
+  }

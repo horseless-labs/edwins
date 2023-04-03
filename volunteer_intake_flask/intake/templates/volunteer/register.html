@@ -103,6 +103,7 @@
 	<input type="dob" name="dob" id="dob">
 	<br>
 
+	<h2>Availability</h2>
 	<div class="form-row">
 		<label for="availability">Availability</label>
 		<select name="availability" id="availability">
@@ -122,6 +123,33 @@
 			<option value="no_preference">No preference</option>
 		</select>
 	</div>
+	<br>
+
+	<div class="form-row">
+		<label for="time">Preferred Time to Volunteer</label>
+		<select for="time" id="time">
+			<option value="weekday_aftn">Weekday afternoons</option>
+			<option value="weekday_eve">Weekday evenings</option>
+			<option value="weekend_aftn">Weekend afternoons</option>
+			<option value="weekend_eve">Weekend evenings</option>
+		</select>
+	</div>
+
+	<fieldset>
+		<legend>Times</legend>
+		<div>
+			<label><input type="checkbox" name="times[]" value="Weekend Afternoons">Weekend Afternoons</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="times[]" value="Weekend Evenings">Weekend Evenings</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="times[]" value="Weekday Afternoons">Weekday Afternoons</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="times[]" value="Weekday Evenings">Weekday Evenings</label>
+		</div>
+	</fieldset>
 	<br>
 
 	<fieldset>
@@ -148,7 +176,140 @@
           <label><input type="checkbox" name="interests[]" value="Other (please describe)">Other (please describe)</label>
           <textarea name="other_interests" rows="3" cols="100"></textarea>
         </div>
-      </fieldset>
+	</fieldset>
+	<br>
+
+	<label>Special Skills or Qualifications</label>
+	<textarea name="skills" rows="3" cols="100"></textarea>
+	<br>
+
+	<label>Previous Volunteer Experience</label>
+	<textarea name="experience" rows="3" cols="100"></textarea>
+	<br>
+
+	<h2>Areas of Interest</h2>
+	<fieldset>
+		<legend>Organization - Event - Fundraising</legend>
+		<div>
+			<label><input type="checkbox" name="oef[]" value="Event Photography/Video Recording">Event Photography/Video Recording</input>
+		</div>
+		<div>
+			<label><input type="checkbox" name="oef[]" value="Event Food Service (serving/cleanup)">Event Food Service (serving/cleanup)</input>
+		</div>
+		<div>
+			<label><input type="checkbox" name="oef[]" value="Event Decoration/Setup">Event Decoration/Setup</input>
+		</div>
+		<div>
+			<label><input type="checkbox" name="oef[]" value="Event Fundraising (sponsors and donations)">Event Fundraising (sponsors and donations)</inputl>
+		</div>
+		<div>
+			<label><input type="checkbox" name="oef[]" value="Event Promotion (ticket sales/media/outreach)">Event Promotion (ticket sales/media/outreach)</input>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Students' Lives</legend>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="Occasional Transportation Assistance">Occasional Transportation Assistance</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="Students’ Well Being: Medical Assistance / Medical Advocate">Students’ Well Being: Medical Assistance / Medical Advocate</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="Students’ Well Being: Pro-Bono Medical or Dental Care">Students’ Well Being: Pro-Bono Medical or Dental Care</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="Students’ Well Being: Nutritionist">Students’ Well Being: Nutritionist</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="Help in Job Seeking">Help in Job Seeking</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="AA/NA Sponsor">AA/NA Sponsor</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="studens_lives[]" value="Students’ Well Being: Other (Please Explain)">Students’ Well Being: Other (Please Explain)</label>
+			<textarea name="other_students_lives" rows="3" cols="100"></textarea>
+		</div>
+	</fieldset>
+	<br>
+
+	<fieldset>
+		<legend>Class/Education</legend>
+		<div>
+			<label><input type="checkbox" name="class_education[]" value="Field Trip Transportation Assistance">Field Trip Transportation Assistance</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="class_education[]" value="In-Prison Volunteer">In-Prison Volunteer</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="class_education[]" value="Teaching a Work Shop / Fitness Class">Teaching a Work Shop / Fitness Class</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="class_education[]" value="Guest Speaker ">Guest Speaker on</label>
+			<textarea name="guest_speaker" rows="3" cols="100"></textarea>
+		</div>
+	</fieldset>
+	<br>
+
+	<fieldset>
+		<legend>Facilities</legend>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Housing Helpers to Ready the Student Dorms">Housing Helpers to Ready the Student Dorms</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Life Skills Center Maintenance">Life Skills Center Maintenance</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Life Skills Center Cleaning">Life Skills Center Cleaning</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Painting">Painting</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Light Construction">Light Construction</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Landscaping">Landscaping</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Gardening">Gardening</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Library Management ">Library Management </label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="facilities[]" value="Homegoods Shop Management">Homegoods Shop Management</label>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Office - Clerical Work - Advocacy</legend>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Guest Speaker at Town Hall Series">Guest Speaker at Town Hall Series</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Political / Legal Advocacy ">Political / Legal Advocacy</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Mass Mailing Preparation ">Mass Mailing Preparation</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Internet Research">Internet Research</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Computer / Data Entry">Computer / Data Entry</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Volunteer Recruitment ">Volunteer Recruitment</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Computer / Technology Assistant">Computer / Technology Assistant</label>
+		</div>
+		<div>
+			<label><input type="checkbox" name="clerical_advo[]" value="Desktop Publishing / Graphic Design">Desktop Publishing / Graphic Design</label>
+		</div>
+	</fieldset>
 
 	<input type="submit" value="Register">
 </form>

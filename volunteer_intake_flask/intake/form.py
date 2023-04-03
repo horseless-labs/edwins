@@ -7,6 +7,7 @@ bp = Blueprint('form', __name__, url_prefix='/volunteer')
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
+        active = 1
         name = request.form["username"]
         address = request.form["address"]
         city = request.form["city"]
@@ -18,7 +19,9 @@ def register():
         cell_phone = request.form["cell_phone"]
         email = request.form["email"]
         dob = request.form["dob"]
-        active = 1
+
+        selected_interests = request.form.getlist("interests[]")
+        other_interests = request.form.get("other_interests")
 
         error = None
 
@@ -59,7 +62,9 @@ def register():
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob),
                 )
-                db.commit()
+                print(selected_interests)
+                print(other_interests)
+                #db.commit()
             except db.IntegrityError:
                 error = f"User {name} is already registered"
             else:
