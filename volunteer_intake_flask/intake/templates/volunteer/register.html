@@ -6,6 +6,7 @@
 
 {% block content %}
 <form method="post">
+	<h2>Personal Info</h2>
 	<label for="username">Name</label>
 	<input name="username" id="username" required>
 	<br>
@@ -15,7 +16,7 @@
 	<br>
 
 	<div class="form-row">
-		<label for="city">City:</label>
+		<label for="city">City</label>
 		<input type="text" id="city" name="city">
 		<label for="state">State:</label>
 		<select name="state" id="state">
@@ -101,6 +102,53 @@
 	<label for="dob">Date of Birth</label>
 	<input type="dob" name="dob" id="dob">
 	<br>
+
+	<div class="form-row">
+		<label for="availability">Availability</label>
+		<select name="availability" id="availability">
+			<option value="1_hour">1 hour per week</option>
+			<option value="2_hour">2 hours per week</option>
+			<option value="3_hour">3-4 hours per week</option>
+			<option value="5_hour">5 hours or more per week</option>
+		</select>
+	</div>
+	<br>
+
+	<div class="form-row">
+		<label for="location">Preferred Location</label>
+		<select name="location" id="location">
+			<option value="edwins">EDWINS</option>
+			<option value="home">Home</option>
+			<option value="no_preference">No preference</option>
+		</select>
+	</div>
+	<br>
+
+	<fieldset>
+        <legend>Interests</legend>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Events and Fundraising">Events and Fundraising</label>
+        </div>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Students' Lives">Students' Lives</label>
+        </div>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Education">Education</label>
+        </div>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Facilities">Facilities</label>
+        </div>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Office/Clerical Work">Office/Clerical Work</label>
+        </div>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Advocacy">Advocacy</label>
+        </div>
+        <div>
+          <label><input type="checkbox" name="interests[]" value="Other (please describe)">Other (please describe)</label>
+          <textarea name="other_interests" rows="3" cols="100"></textarea>
+        </div>
+      </fieldset>
 
 	<input type="submit" value="Register">
 </form>
