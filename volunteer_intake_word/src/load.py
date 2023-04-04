@@ -62,14 +62,6 @@ def parse_check_boxes(paragraphs):
 
 if __name__ == '__main__':
     doc = open_document(src_file)
-    
-    """
-    doc_length = len(doc.paragraphs)
-    print(doc_length)
-    for p in range(doc_length):
-        para = doc.paragraphs[p]
-        print(para.text)
-    """
 
     paragraphs = extract_paragraphs(doc)
     print(paragraphs)
