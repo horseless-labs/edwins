@@ -56,7 +56,7 @@ def parse_check_boxes(paragraphs):
     paragraphs = paragraphs.split('\n')
     boxes = []
     for para in paragraphs:
-        if '_' in para:
+        if '_' in para and para.count('_') < 10:
             boxes.append(para)
     return boxes
 
@@ -64,9 +64,10 @@ if __name__ == '__main__':
     doc = open_document(src_file)
 
     paragraphs = extract_paragraphs(doc)
-    print(paragraphs)
     boxes = parse_check_boxes(paragraphs)
-    print(boxes)
+    
+    for box in boxes:
+        print(box)
 
     """
     if doc:
