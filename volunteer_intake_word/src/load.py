@@ -25,5 +25,4 @@ def parse(document):
 if __name__ == '__main__':
     doc = open_document(src_file)
     
-    if doc:
-        form = parse(doc)
+    form = parse(doc)
