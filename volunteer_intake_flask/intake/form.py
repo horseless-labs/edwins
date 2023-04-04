@@ -20,8 +20,23 @@ def register():
         email = request.form["email"]
         dob = request.form["dob"]
 
+        times = request.form.getlist("times[]")
+
         selected_interests = request.form.getlist("interests[]")
         other_interests = request.form.get("other_interests")
+
+        skills = request.form.get("skills")
+        experience = request.form.get("experinece")
+
+        oef = request.form.getlist("oef[]")
+        students_lives = request.form.getlist("students_lives[]")
+        other_students_lives = request.form.get("other_students_lives")
+
+        class_education = request.form.getlist("class_education[]")
+        guest_speaker = request.form.get("guest_speaker")
+
+        facilities = request.form.getlist("facilities[]")
+        clerical_advo = request.form.getlist("clerical_advo[]")
 
         error = None
 
