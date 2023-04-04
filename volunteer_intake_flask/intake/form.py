@@ -77,8 +77,8 @@ def register():
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob),
                 )
-                print(selected_interests)
-                print(other_interests)
+                #print(selected_interests)
+                #print(other_interests)
                 #db.commit()
             except db.IntegrityError:
                 error = f"User {name} is already registered"
