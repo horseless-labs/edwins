@@ -37,7 +37,6 @@ def extract_paragraphs(document):
 """
 Noticing now that the extracted fields so far do not include check boxes.
 TODO:
-    - Add ability to extract check boxes to `extract_fields()`
     - Add a dictionary
 """
 def parse_fields(field_str):
@@ -63,15 +62,13 @@ def parse_check_boxes(paragraphs):
 if __name__ == '__main__':
     doc = open_document(src_file)
 
-    paragraphs = extract_paragraphs(doc)
-    boxes = parse_check_boxes(paragraphs)
-    
-    for box in boxes:
-        print(box)
-
-    """
     if doc:
+        # Intermediate step
+        paragraphs = extract_paragraphs(doc)
+
+        # Check boxes
+        boxes = parse_check_boxes(paragraphs)
         form = extract_fields(doc)
         #parse_fields(form)
         print(form)
-    """
+        print(boxes)
