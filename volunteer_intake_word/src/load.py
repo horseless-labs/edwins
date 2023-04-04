@@ -16,9 +16,8 @@ def open_document(src_file):
 def extract_fields(document):
     form = ""
     for table in document.tables:
-        #print("NEW TABLE")
         for row in table.rows:
-            #print("|".join([cell.text for cell in row.cells]))
+            #ueg = "NEW TABLE\n"
             ueg = "|".join([cell.text for cell in row.cells])
             if ueg.endswith("|"):
                 ueg += "NA\n"
@@ -26,6 +25,14 @@ def extract_fields(document):
                 ueg += '\n'
             form += ueg
     return form
+
+def extract_paragraphs(document):
+    doc_length = len(document.paragraphs)
+    paras = ""
+    for p in range(doc_length):
+        para = document.paragraphs[p]
+        paras += para.text + '\n'
+    return paras
 
 """
 Noticing now that the extracted fields so far do not include check boxes.
@@ -43,10 +50,35 @@ def parse_fields(field_str):
             text_areas.append(row)
             continue
 
+# My first way of approaching this takes the complete form and parses individual
+# lines with underscores. Messy and unpythonic.
+def parse_check_boxes(paragraphs):
+    paragraphs = paragraphs.split('\n')
+    boxes = []
+    for para in paragraphs:
+        if '_' in para:
+            boxes.append(para)
+    return boxes
+
 if __name__ == '__main__':
     doc = open_document(src_file)
     
+    """
+    doc_length = len(doc.paragraphs)
+    print(doc_length)
+    for p in range(doc_length):
+        para = doc.paragraphs[p]
+        print(para.text)
+    """
+
+    paragraphs = extract_paragraphs(doc)
+    print(paragraphs)
+    boxes = parse_check_boxes(paragraphs)
+    print(boxes)
+
+    """
     if doc:
         form = extract_fields(doc)
         #parse_fields(form)
         print(form)
+    """
