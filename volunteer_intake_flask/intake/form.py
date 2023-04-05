@@ -9,34 +9,34 @@ def register():
     if request.method == 'POST':
         active = 1
         name = request.form["username"]
-        address = request.form["address"]
-        city = request.form["city"]
-        state = request.form["state"]
-        zip = request.form["zip"]
-        home_phone = request.form["home_phone"]
-        occupation = request.form["occupation"]
-        employer = request.form["employer"]
-        cell_phone = request.form["cell_phone"]
-        email = request.form["email"]
-        dob = request.form["dob"]
+        address = request.form["address"] or "NA"
+        city = request.form["city"] or "NA"
+        state = request.form["state"] or "NA"
+        zip = request.form["zip"] or "NA"
+        home_phone = request.form["home_phone"] or "NA"
+        occupation = request.form["occupation"] or "NA"
+        employer = request.form["employer"] or "NA"
+        cell_phone = request.form["cell_phone"] or "NA"
+        email = request.form["email"] or "NA"
+        dob = request.form["dob"] or "NA"
 
-        times = request.form.getlist("times[]")
+        times = request.form.getlist("times[]") or "NA"
 
-        selected_interests = request.form.getlist("interests[]")
-        other_interests = request.form.get("other_interests")
+        selected_interests = request.form.getlist("interests[]") or "NA"
+        other_interests = request.form.get("other_interests") or "NA"
 
-        skills = request.form.get("skills")
-        experience = request.form.get("experinece")
+        skills = request.form.get("skills") or "NA"
+        experience = request.form.get("experinece") or "NA"
 
-        oef = request.form.getlist("oef[]")
-        students_lives = request.form.getlist("students_lives[]")
-        other_students_lives = request.form.get("other_students_lives")
+        oef = request.form.getlist("oef[]") or "NA"
+        students_lives = request.form.getlist("students_lives[]") or "NA"
+        other_students_lives = request.form.get("other_students_lives") or "NA"
 
-        class_education = request.form.getlist("class_education[]")
-        guest_speaker = request.form.get("guest_speaker")
+        class_education = request.form.getlist("class_education[]") or "NA"
+        guest_speaker = request.form.get("guest_speaker") or "NA"
 
-        facilities = request.form.getlist("facilities[]")
-        clerical_advo = request.form.getlist("clerical_advo[]")
+        facilities = request.form.getlist("facilities[]") or "NA"
+        clerical_advo = request.form.getlist("clerical_advo[]") or "NA"
 
         error = None
 
@@ -47,6 +47,7 @@ def register():
             error = "Name is required."
 
         # Unsure the extent to which these will be required by Edwins
+        """
         if not address:
             address = "NA"
         if not city:
@@ -67,15 +68,19 @@ def register():
             email = "NA"
         if not dob:
             dob = "NA"
+        """
 
         if error is None:
             # TODO: build out the full intake form to match the schema.
             print("Error is None")
             try:
                 db.execute(
-                    "INSERT INTO volunteer_small (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob)" \
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob),
+                    "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob," \
+                    " times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education," \
+                    " guest_speaker, facilities, clerical_advo)" \
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, times, selected_interests,
+                     other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, guest_speaker, facilities, clerical_advo),
                 )
                 #print(selected_interests)
                 #print(other_interests)
