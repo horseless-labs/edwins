@@ -23,18 +23,6 @@ def register():
         cell_phone = request.form["cell_phone"] or "NA"
         email = request.form["email"] or "na@na.com"
         dob = request.form["dob"] or "NA"
-        print(active)
-        print(name)
-        print(address)
-        print(city)
-        print(state)
-        print(zip)
-        print(home_phone)
-        print(occupation)
-        print(employer)
-        print(cell_phone)
-        print(email)
-        print(dob)
 
         times = request.form.getlist("times[]") or ["NA"]
         times = stringify_checkbox(times)
@@ -82,13 +70,6 @@ def register():
                     (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, times, selected_interests,
                      other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, guest_speaker, facilities, clerical_advo),
                 )
-                #print(selected_interests)
-                #print(other_interests)
-                print(oef)
-                print(students_lives)
-                print(class_education)
-                print(facilities)
-                print(clerical_advo)
                 #db.commit()
             except db.IntegrityError:
                 error = f"User {name} is already registered"

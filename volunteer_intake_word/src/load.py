@@ -14,7 +14,7 @@ def open_document(src_file):
         return doc
 
 def extract_fields(document):
-    form = ""
+    form = []
     for table in document.tables:
         for row in table.rows:
             #ueg = "NEW TABLE\n"
@@ -23,7 +23,7 @@ def extract_fields(document):
                 ueg += "NA\n"
             else:
                 ueg += '\n'
-            form += ueg
+            form.append(ueg)
     return form
 
 def extract_paragraphs(document):
@@ -61,16 +61,49 @@ def parse_check_boxes(paragraphs):
 
 # Reduces a list of check boxes to a small number of strings, one for each of the
 # broader categories that they are found in on the volunteer intake form.
+def stringify_checkbox(checkbox):
+    str_checkbox = ', '.join(checkbox)
+    return str_checkbox
+
 def reduce_boxes(boxes):
     selected_interests = boxes[:7]
     # Things like other_interests are not collected from checkboxes.
 
-    oef = boxes[7:12]
-    students_lives = boxes[12:19]
-    class_education = boxes[19:23]
-    facilities = boxes[23:32]
-    clerical_advo = boxes[32:40]
-    print(clerical_advo)
+    oef = stringify_checkbox(boxes[7:12])
+    students_lives = stringify_checkbox(boxes[12:19])
+    class_education = stringify_checkbox(boxes[19:23])
+    facilities = stringify_checkbox(boxes[23:32])
+    clerical_advo = stringify_checkbox(boxes[32:40])
+    return [selected_interests, oef, students_lives, class_education, facilities, clerical_advo]
+
+def break_pipe(str):
+    return str.split('|')[1]
+
+def reduce_form(form):
+    for i in range(len(form)):
+        print(f"{i}: {form[i]}")
+
+    name = break_pipe(form[1])
+    address = break_pipe(form[2])
+    location = break_pipe(form[3])
+
+    city = location[0]
+    state = location[1]
+    zip = location[2]
+
+    home_phone = break_pipe(form[4])
+    occupation = break_pipe(form[5])
+    employer = break_pipe(form[6])
+    cell_phone = break_pipe(form[7])
+    email = break_pipe(form[8])
+    dob = break_pipe(form[9])
+
+    other_interests = form[18]
+    skills = form[19]
+    experience = form[20]
+    return [name, address, location, city, state, zip, home_phone, occupation,
+            employer, cell_phone, email, dob, other_interests, skills, experience]
+
 
 if __name__ == '__main__':
     doc = open_document(src_file)
@@ -83,10 +116,10 @@ if __name__ == '__main__':
         boxes = parse_check_boxes(paragraphs)
         form = extract_fields(doc)
         #parse_fields(form)
-        #print(form)
+        reduce_form(form)
         #print(boxes)
         """
         for i in range(len(boxes)):
             print(f"{i}: {boxes[i]}")
         """
-        reduce_boxes(boxes)
+        str_boxes = reduce_boxes(boxes)
