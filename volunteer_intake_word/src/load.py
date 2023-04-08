@@ -80,7 +80,14 @@ def only_checked(boxes):
         ueg = box.split(', ')
         for item in ueg:
             if is_checked(item):
+                item = item.split(' ', 1)[1].rstrip()
                 section.append(item)
+
+        if len(section) == 0:
+            section = 'NA'
+        else:
+            section = ', '.join(section)
+                    
         new_boxes.append(section)
     return new_boxes
 
@@ -117,9 +124,9 @@ def reduce_form(form):
     email = break_pipe(form[8])
     dob = break_pipe(form[9])
 
-    other_interests = form[18]
-    skills = form[19]
-    experience = form[20]
+    other_interests = form[18].rstrip()
+    skills = form[19].rstrip()
+    experience = form[20].rstrip()
     return [active, name, address, city, state, zip, home_phone, occupation,
             employer, cell_phone, email, dob, other_interests, skills, experience]
 
@@ -161,21 +168,21 @@ if __name__ == '__main__':
         guest_speaker = "NA"
         
         db = get_db(db_file)
-        print(only_checked(boxes))
+        boxes = only_checked(boxes)
 
         # Use a dummy document that has all fields filled out.
         # Stuff like other_students_lives is not represented here, and it's breaking the parser
         
-        # try:
-        #     db.execute(
-        #             "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, \
-        #             availability, location, times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
-        #             guest_speaker, facilities, clerical_advo) \
-        #             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        #             (form[0], form[1], form[2], form[3], form[4], form[5], form[6], form[7], form[8], form[9], form[10],
-        #              form[11], form[12], avail[0], avail[1], avail[2], boxes[0], form[13], form[14], boxes[1],
-        #              boxes[2], other_students_lives, boxes[3], guest_speaker, boxes[4], boxes[5])
-        #     )
-        #     db.commit()
-        # except db.IntegrityError:
-        #     error = f"User {form[1]} is already registered"
+        try:
+            db.execute(
+                    "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, \
+                    availability, location, times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
+                    guest_speaker, facilities, clerical_advo) \
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (form[0], form[1], form[2], form[3], form[4], form[5], form[6], form[7], form[8], form[9], form[10],
+                     form[11], form[12], avail[0], avail[1], avail[2], boxes[0], form[13], form[14], boxes[1],
+                     boxes[2], other_students_lives, boxes[3], guest_speaker, boxes[4], boxes[5])
+            )
+            db.commit()
+        except db.IntegrityError:
+            error = f"User {form[1]} is already registered"
