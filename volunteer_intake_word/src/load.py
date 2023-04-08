@@ -107,22 +107,22 @@ def break_pipe(str):
 
 def reduce_form(form):
     active = 1
-    name = break_pipe(form[1])
-    address = break_pipe(form[2])
+    name = break_pipe(form[1]).rstrip()
+    address = break_pipe(form[2]).rstrip()
 
     location = break_pipe(form[3])
     location = location.split(', ')
 
-    city = location[0]
-    state = location[1]
-    zip = location[2]
+    city = location[0].rstrip()
+    state = location[1].rstrip()
+    zip = location[2].rstrip()
 
-    home_phone = break_pipe(form[4])
-    occupation = break_pipe(form[5])
-    employer = break_pipe(form[6])
-    cell_phone = break_pipe(form[7])
-    email = break_pipe(form[8])
-    dob = break_pipe(form[9])
+    home_phone = break_pipe(form[4]).rstrip()
+    occupation = break_pipe(form[5]).rstrip()
+    employer = break_pipe(form[6]).rstrip()
+    cell_phone = break_pipe(form[7]).rstrip()
+    email = break_pipe(form[8]).rstrip()
+    dob = break_pipe(form[9]).rstrip()
 
     other_interests = form[18].rstrip()
     skills = form[19].rstrip()
