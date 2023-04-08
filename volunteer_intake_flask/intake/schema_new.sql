@@ -15,6 +15,8 @@ CREATE TABLE volunteer (
 	cell_phone TEXT,
 	email TEXT,
 	dob TEXT,
+	availability TEXT,
+	location TEXT,
 	times TEXT,
     selected_interests TEXT,
     other_interests TEXT,

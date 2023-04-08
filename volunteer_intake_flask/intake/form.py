@@ -24,6 +24,9 @@ def register():
         email = request.form["email"] or "na@na.com"
         dob = request.form["dob"] or "NA"
 
+        availability = request.form["availability"] or "NA"
+        location = request.form["location"] or "NA"
+
         times = request.form.getlist("times[]") or ["NA"]
         times = stringify_checkbox(times)
 
@@ -64,10 +67,10 @@ def register():
             try:
                 db.execute(
                     "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, \
-                    times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
+                    availability, location, times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
                     guest_speaker, facilities, clerical_advo) \
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, times, selected_interests,
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, availability, location, times, selected_interests,
                      other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, guest_speaker, facilities, clerical_advo),
                 )
                 #db.commit()
