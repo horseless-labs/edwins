@@ -88,13 +88,17 @@ def break_pipe(str):
     return str.split('|')[1]
 
 def reduce_form(form):
+    """
     for i in range(len(form)):
         print(f"{i}: {form[i]}")
+    """
     active = 1
     name = break_pipe(form[1])
     address = break_pipe(form[2])
-    location = break_pipe(form[3])
 
+    location = break_pipe(form[3])
+    location = location.split(', ')
+    print(location)
     city = location[0]
     state = location[1]
     zip = location[2]
@@ -109,7 +113,7 @@ def reduce_form(form):
     other_interests = form[18]
     skills = form[19]
     experience = form[20]
-    return [active, name, address, location, city, state, zip, home_phone, occupation,
+    return [active, name, address, city, state, zip, home_phone, occupation,
             employer, cell_phone, email, dob, other_interests, skills, experience]
 
 # Kludgy, but something is up with the Word document.
@@ -142,23 +146,32 @@ if __name__ == '__main__':
         boxes = parse_check_boxes(paragraphs)
         form = extract_fields(doc)
 
-        #boxes = reduce_boxes(boxes)
-        #form = reduce_boxes(form)
-        #db = get_db(db_file)
+        boxes = reduce_boxes(boxes)
+        form = reduce_form(form)
+        
+        print(len(form))
+        for i in range(len(form)):
+            print(f"{i}: {form[i]}")
+        
 
         avail = get_availability_info(paragraphs)
-        print(form)
+        other_students_lives = "NA"
+        guest_speaker = "NA"
+        
+        db = get_db(db_file)
+
         # Use a dummy document that has all fields filled out.
         # Stuff like other_students_lives is not represented here, and it's breaking the parser
-        """
         try:
             db.execute(
                     "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, \
                     availability, location, times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
                     guest_speaker, facilities, clerical_advo) \
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (form[0], form[1], form[2], form[3], form[4], form[5], form[6], form[7], form[8], form[9], form[10],
-                     form[11], form[12], avail[0], avail[1], avail[2], boxes[0], form[13], form[14], form[15], boxes[1],
-                     boxes[2], )
+                     form[11], form[12], avail[0], avail[1], avail[2], boxes[0], form[13], form[14], boxes[1],
+                     boxes[2], other_students_lives, boxes[3], guest_speaker, boxes[4], boxes[5])
             )
-        """
+            db.commit()
+        except db.IntegrityError:
+            error = f"User {form[1]} is already registered"
