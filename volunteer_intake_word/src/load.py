@@ -1,6 +1,5 @@
 from docx.api import Document
 import sqlite3
-import os
 
 src_file = "data/test.docx"
 db_file = "../volunteer_intake_flask/instance/intake_new.sqlite"
@@ -42,11 +41,6 @@ def extract_paragraphs(document):
         paras += para.text + '\n'
     return paras
 
-"""
-Noticing now that the extracted fields so far do not include check boxes.
-TODO:
-    - Add a dictionary
-"""
 def parse_fields(field_str):
     rows = field_str.split('\n')
     print(rows)
@@ -73,6 +67,23 @@ def stringify_checkbox(checkbox):
     str_checkbox = ', '.join(checkbox)
     return str_checkbox
 
+def is_checked(string):
+    if string.startswith("____ ") or string.startswith("__ ") or string.startswith("___ "):
+        return False
+    else:
+        return True
+
+def only_checked(boxes):
+    new_boxes = []
+    for box in boxes:
+        section = []
+        ueg = box.split(', ')
+        for item in ueg:
+            if is_checked(item):
+                section.append(item)
+        new_boxes.append(section)
+    return new_boxes
+
 def reduce_boxes(boxes):
     selected_interests = stringify_checkbox(boxes[:7])
     # Things like other_interests are not collected from checkboxes.
@@ -88,17 +99,13 @@ def break_pipe(str):
     return str.split('|')[1]
 
 def reduce_form(form):
-    """
-    for i in range(len(form)):
-        print(f"{i}: {form[i]}")
-    """
     active = 1
     name = break_pipe(form[1])
     address = break_pipe(form[2])
 
     location = break_pipe(form[3])
     location = location.split(', ')
-    print(location)
+
     city = location[0]
     state = location[1]
     zip = location[2]
@@ -148,30 +155,27 @@ if __name__ == '__main__':
 
         boxes = reduce_boxes(boxes)
         form = reduce_form(form)
-        
-        print(len(form))
-        for i in range(len(form)):
-            print(f"{i}: {form[i]}")
-        
 
         avail = get_availability_info(paragraphs)
         other_students_lives = "NA"
         guest_speaker = "NA"
         
         db = get_db(db_file)
+        print(only_checked(boxes))
 
         # Use a dummy document that has all fields filled out.
         # Stuff like other_students_lives is not represented here, and it's breaking the parser
-        try:
-            db.execute(
-                    "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, \
-                    availability, location, times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
-                    guest_speaker, facilities, clerical_advo) \
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    (form[0], form[1], form[2], form[3], form[4], form[5], form[6], form[7], form[8], form[9], form[10],
-                     form[11], form[12], avail[0], avail[1], avail[2], boxes[0], form[13], form[14], boxes[1],
-                     boxes[2], other_students_lives, boxes[3], guest_speaker, boxes[4], boxes[5])
-            )
-            db.commit()
-        except db.IntegrityError:
-            error = f"User {form[1]} is already registered"
+        
+        # try:
+        #     db.execute(
+        #             "INSERT INTO volunteer (active, name, address, city, state, zip, home_phone, occupation, employer, cell_phone, email, dob, \
+        #             availability, location, times, selected_interests, other_interests, skills, experience, oef, students_lives, other_students_lives, class_education, \
+        #             guest_speaker, facilities, clerical_advo) \
+        #             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        #             (form[0], form[1], form[2], form[3], form[4], form[5], form[6], form[7], form[8], form[9], form[10],
+        #              form[11], form[12], avail[0], avail[1], avail[2], boxes[0], form[13], form[14], boxes[1],
+        #              boxes[2], other_students_lives, boxes[3], guest_speaker, boxes[4], boxes[5])
+        #     )
+        #     db.commit()
+        # except db.IntegrityError:
+        #     error = f"User {form[1]} is already registered"
